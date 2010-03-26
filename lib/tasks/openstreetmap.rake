@@ -1,5 +1,7 @@
 
 namespace(:openstreetmap) do
+  
+  desc "Downloads OpenStreetmap data for street names on Ottawa"
   task(:download) do
 
     coords   = [-75.7283, 45.4016, -75.6649, 45.4388]
@@ -11,6 +13,7 @@ namespace(:openstreetmap) do
     `wget #{url} -O #{filename}`
   end
   
+  desc "Imports street names from OpenStreetmap data"
   task(:import_streets => :environment) do
 
     filename = Rails.root.join('db', 'data', 'ottawa.osm.xml')

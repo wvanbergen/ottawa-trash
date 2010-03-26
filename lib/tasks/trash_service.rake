@@ -32,7 +32,7 @@ namespace(:trash) do
           when 'FRIDAY'    then 5
           when 'SATURDAY'  then 6
           when 'SUNDAY'    then 7
-          else p trash_day; nil
+          else nil
         end
       
         calendar = (trash_calendar =~ /Cal(?:endar|\.) ([A-Z]).?(\*|APARTMENT)?/) ? $1 : nil
