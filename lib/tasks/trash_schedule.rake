@@ -1,9 +1,10 @@
-require 'open-uri'
 
 namespace(:trash_schedule) do
   
   desc "Import the trash database using HTML scraping"
   task(:scrape => [:environment]) do
+    
+    require 'open-uri'
     
     (('A'..'Z').entries + ('0'..'9').entries).each do |search|
     
@@ -19,7 +20,9 @@ namespace(:trash_schedule) do
         trash_day      = tag.at_xpath('./td[3]/font').content
         trash_calendar = tag.at_xpath('./td[4]//font').content
 
-        if /(\d+)\s*-\s*(\d+)/ =~ street_number
+        if street_number.blank?
+          schedule[:start_nr], schedule[:end_nr] = nil, nil
+        elsif /(\d+)\s*-\s*(\d+)/ =~ street_number
           schedule[:start_nr], schedule[:end_nr] = $1.to_i, $2.to_i
         else
           schedule[:start_nr], schedule[:end_nr] = street_number.strip.to_i, street_number.strip.to_i
