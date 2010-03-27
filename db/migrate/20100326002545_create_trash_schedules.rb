@@ -4,6 +4,8 @@ class CreateTrashSchedules < ActiveRecord::Migration
       t.integer :start_nr
       t.integer :end_nr
       t.string  :street
+      t.string  :street_type, :length => 10
+      t.string  :community
       t.string  :calendar, :limit => 1
       t.integer :day
       
