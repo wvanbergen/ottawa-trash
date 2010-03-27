@@ -5,16 +5,23 @@ class TrashSchedule < ActiveRecord::Base
                 'Thursday' => 4, 'Friday' => 5 }
 
   ICALENDAR_DIR = Rails.root.join('public', 'schedules')
-  ICALENDAR_SOURCE_URL = 'http://www.shawnhooper.ca/projects/ottawa-garbage-ical/gcc_%s_%s.ics'
+  ICALENDAR_SOURCE_URL_TEMPLATE = 'http://www.shawnhooper.ca/projects/ottawa-garbage-ical/gcc_%s_%s.ics'
 
-  def self.icalendar_source_urls
-    urls = []
-    SCHEDULES.each do |schedule|
-      DAYS.each do |day, index|
-        urls << ICALENDAR_SOURCE_URL % [schedule.downcase, day.downcase]
+  LOOKUP_URL_TEMPLATE = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
+
+  def self.each_icalendar_source_url(&block)
+    if block_given?
+      SCHEDULES.each do |schedule|
+        DAYS.each do |day, index|
+          url = ICALENDAR_SOURCE_URL_TEMPLATE % 
+                    [CGI.escape(schedule.downcase), CGI.escape(day.downcase)]
+
+          yield(schedule, day, url)
+        end
       end
+    else
+      Enumerable::Enumerator.new(self, :each_icalendar_source_url)
     end
-    urls
   end
 
 end

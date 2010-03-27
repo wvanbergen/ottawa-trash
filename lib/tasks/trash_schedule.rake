@@ -5,17 +5,11 @@ namespace(:trash_schedule) do
   desc "Import the trash database using HTML scraping"
   task(:scrape => [:environment]) do
     
-    url_template = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
-    
-    days_of_week = { 'MONDAY' => 1, 'TUESDAY' => 2, 'WEDNESDAY' => 3,
-      'THURSDAY' => 4, 'FRIDAY' => 5, 'SATURDAY' => 6, 'SUNDAY' => 7 }
-    
     (('A'..'Z').entries + ('0'..'9').entries).each do |search|
     
       puts "Importing schedule for streets starting with '#{search}'..."
       
-      url = url_template % CGI.escape(search)
-      
+      url = TrashSchedule::LOOKUP_URL_TEMPLATE % CGI.escape(search)
       Nokogiri::HTML(open(url)).xpath('//table//table//tr[@bgcolor]').each do |tag|
 
         schedule = {}
@@ -35,7 +29,7 @@ namespace(:trash_schedule) do
         schedule[:street_type] = street_name.slice(27...34).strip
         schedule[:community]   = street_name.slice(34..-1).strip.slice(1..-2)
         
-        schedule[:day]       = days_of_week[trash_day.strip]
+        schedule[:day]       = TrashSchedule::DAYS[trash_day.strip.capitalize]
         schedule[:calendar]  = (trash_calendar =~ /Cal(?:endar|\.) ([A-Z]).?(\*|APARTMENT)?/) ? $1 : nil
         schedule[:apartment] = ($2 == 'APARTMENT')
         schedule[:star]      = ($2 == '*')
@@ -54,18 +48,27 @@ namespace(:trash_schedule) do
   task(:download_ical_files => :environment) do
     # Make sure the target directory exists
     FileUtils.mkdir_p(TrashSchedule::ICALENDAR_DIR)
-    TrashSchedule.icalendar_source_urls.each do |url|
-      filename = TrashSchedule::ICALENDAR_DIR.join(url.split('/').last)
-      File.open(filename, 'w') do |file|
-        file << Net::HTTP.get(URI.parse(url))
-      end
+    
+    # Now, get every schedule variant.
+    TrashSchedule.each_icalendar_source_url do |schedule, day, url|
+
+      puts "Downloading #{day} variant for schedule #{schedule}..."
+
+      # Build the filename
+      filename = "%s_%s.ics" % [schedule.downcase, day.downcase]
+      path = TrashSchedule::ICALENDAR_DIR.join(filename)
+      
+      # Download the file and store it locally.
+      File.open(path, 'w') { |f| f << Net::HTTP.get(URI.parse(url)) }
+      sleep(1.0) # ... and rest for a bit!
     end
+    puts "Downloaded all iCalendar files!"
   end
 end
 
 task(:bootstrap => ['db:migrate', 
                     'trash_schedule:scrape',
                     'trash_schedule:download_ical_files']) do
-                      
+
   puts "All required data imported correctly!"
 end
