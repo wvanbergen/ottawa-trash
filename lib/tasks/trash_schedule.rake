@@ -51,10 +51,9 @@ namespace(:trash_schedule) do
   end
 end
 
+desc "Bootstrap Ottawa Garbage Collection [all setup tasks in one command]"
 task(:bootstrap => ['db:migrate', 
-                    'openstreetmap:download', 
-                    'openstreetmap:import_streets', 
-                    'trash:import']) do
+                    'trash_schedule:scrape']) do
                       
   puts "All required data imported correctly!"
 end
