@@ -1,0 +1,24 @@
+= Ottawa Garbage Collection
+
+This is for hoping that the government & citizens of Ottawa together can make
+garbage collection be more efficient than Ruby's.
+
+This application is hosted on http://ogc.heroku.com.
+
+== Background
+
+This application is written as part of the OpenDataOttawa initiative (see
+http://opendataottawa.ca/) and out of frustration by the awkwardness of the UI
+of the official application of the city (http://ottawa.ca/cgi-bin/gc/gc.pl).
+
+Thanks to Edward Ocampo-Gooding for the idea of this application, the City of 
+Ottawa for letting is scrape their data, and Heroku for hosting the application.
+
+== Building lookup database
+
+This application requires a database of street names and numbers, matched to a
+trash pickup schedule, to run correctly. You can build this database by issuing
+two rake tasks.
+
+    rake db:migrate # to setup the database schema.
+    rake trash_schedule:scrape # to import the trash schedules for these streets.

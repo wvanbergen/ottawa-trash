@@ -8,8 +8,6 @@ gem "rails", :git => "git://github.com/rails/rails.git"
 
 gem "mysql"
 gem "nokogiri"
-gem "scrapi"
-
 
 ## Bundle the gems you use:
 # gem "bj"

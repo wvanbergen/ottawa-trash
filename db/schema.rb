@@ -11,20 +11,13 @@
 
 ActiveRecord::Schema.define(:version => 20100326002545) do
 
-  create_table "streets", :force => true do |t|
-    t.string "full_name"
-    t.string "name"
-    t.string "prefix"
-    t.string "suffix"
-  end
-
-  add_index "streets", ["full_name"], :name => "index_streets_on_full_name", :unique => true
-
   create_table "trash_schedules", :force => true do |t|
     t.integer  "start_nr"
     t.integer  "end_nr"
     t.string   "street"
-    t.string   "calendar",   :limit => 1
+    t.string   "street_type"
+    t.string   "community"
+    t.string   "calendar",    :limit => 1
     t.integer  "day"
     t.boolean  "star"
     t.boolean  "apartment"
