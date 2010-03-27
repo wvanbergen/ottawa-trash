@@ -20,6 +20,8 @@ namespace(:openstreetmap) do
     doc      = Nokogiri::XML(open(filename))
 
     doc.xpath("//way[tag[@k='highway']]/tag[@k='name']/@v").each do |tag|
+      streetname = tag.content
+      puts "Saving #{streetname}"
       Street.parse(tag.content).save! rescue nil
     end
   end

@@ -37,10 +37,10 @@ namespace(:trash) do
       
         calendar = (trash_calendar =~ /Cal(?:endar|\.) ([A-Z]).?(\*|APARTMENT)?/) ? $1 : nil
       
-        TrashSchedule.find_or_create_by_street_and_start_nr(:start_nr => start_nr, 
+        ts = TrashSchedule.find_or_create_by_street_and_start_nr(:start_nr => start_nr, 
             :end_nr => end_nr, :street => street, :calendar => calendar, :day => day,
             :apartment => ($2 == 'APARTMENT'), :star => ($2 == '*'))
-            
+        puts "Added #{ts.inspect}"
         sleep(0.5)
       end
     end
