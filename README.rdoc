@@ -1,9 +1,14 @@
 = Ottawa Garbage Collection
 
-This is for hoping that the government & citizens of Ottawa together can make
-garbage collection be more efficient than Ruby's.
+This application lets you type in an Ottawa address to find out when your
+trash/recycling/compost needs to go out to the curb.
 
-This application is hosted on http://ogc.heroku.com.
+Check it out at http://ogc.heroku.com
+
+== Dedication
+
+Written in the hopes that the government & citizens of Ottawa can together make
+garbage collection be more efficient than Ruby's.
 
 == Background
 
