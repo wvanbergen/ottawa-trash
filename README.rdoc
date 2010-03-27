@@ -19,11 +19,10 @@ of the official application of the city (http://ottawa.ca/cgi-bin/gc/gc.pl).
 Thanks to Edward Ocampo-Gooding for the idea of this application, the City of 
 Ottawa for letting is scrape their data, and Heroku for hosting the application.
 
-== Building lookup database
+== Bootstrapping the application
 
 This application requires a database of street names and numbers, matched to a
-trash pickup schedule, to run correctly. You can build this database by issuing
-two rake tasks.
+trash pickup schedule, and the actual schedules as iCalendar files to run 
+correctly. You can build this database by issuing a rake task:
 
-    rake db:migrate # to setup the database schema.
-    rake trash_schedule:scrape # to import the trash schedules for these streets.
+    rake bootstrap
