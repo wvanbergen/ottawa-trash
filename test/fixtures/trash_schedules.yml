@@ -1,15 +1,1 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  start_nr: 1
-  end_nr: 1
-  street: MyString
-  calendar: MyString
-  day: 1
-
-two:
-  start_nr: 1
-  end_nr: 1
-  street: MyString
-  calendar: MyString
-  day: 1

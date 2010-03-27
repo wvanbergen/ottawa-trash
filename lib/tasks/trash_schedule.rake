@@ -21,11 +21,11 @@ namespace(:trash_schedule) do
         trash_calendar = tag.at_xpath('./td[4]//font').content
 
         if street_number.blank?
-          schedule[:start_nr], schedule[:end_nr] = nil, nil
+          schedule[:start_no], schedule[:end_no] = nil, nil
         elsif /(\d+)\s*-\s*(\d+)/ =~ street_number
-          schedule[:start_nr], schedule[:end_nr] = $1.to_i, $2.to_i
+          schedule[:start_no], schedule[:end_no] = $1.to_i, $2.to_i
         else
-          schedule[:start_nr], schedule[:end_nr] = street_number.strip.to_i, street_number.strip.to_i
+          schedule[:start_no], schedule[:end_no] = street_number.strip.to_i, street_number.strip.to_i
         end
 
         schedule[:street]      = street_name.slice(0...27).strip
@@ -37,7 +37,7 @@ namespace(:trash_schedule) do
         schedule[:apartment] = ($2 == 'APARTMENT')
         schedule[:star]      = ($2 == '*')
 
-        TrashSchedule.find_or_create_by_street_and_start_nr(schedule)
+        TrashSchedule.find_or_create_by_street_and_start_no(schedule)
       end
 
       # Now, give the city's servers some time to breathe.

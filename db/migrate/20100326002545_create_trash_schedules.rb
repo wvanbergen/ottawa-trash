@@ -1,8 +1,8 @@
 class CreateTrashSchedules < ActiveRecord::Migration
   def self.up
     create_table :trash_schedules do |t|
-      t.integer :start_nr
-      t.integer :end_nr
+      t.integer :start_no
+      t.integer :end_no
       t.string  :street
       t.string  :street_type, :length => 10
       t.string  :community
@@ -15,7 +15,7 @@ class CreateTrashSchedules < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :trash_schedules, [:street, :start_nr], :unique => true
+    add_index :trash_schedules, [:street, :start_no], :unique => true
   end
 
   def self.down

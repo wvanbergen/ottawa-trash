@@ -12,8 +12,8 @@
 ActiveRecord::Schema.define(:version => 20100326002545) do
 
   create_table "trash_schedules", :force => true do |t|
-    t.integer  "start_nr"
-    t.integer  "end_nr"
+    t.integer  "start_no"
+    t.integer  "end_no"
     t.string   "street"
     t.string   "street_type"
     t.string   "community"
@@ -25,6 +25,6 @@ ActiveRecord::Schema.define(:version => 20100326002545) do
     t.datetime "updated_at"
   end
 
-  add_index "trash_schedules", ["street", "start_nr"], :name => "index_trash_schedules_on_street_and_start_nr", :unique => true
+  add_index "trash_schedules", ["street", "start_no"], :name => "index_trash_schedules_on_street_and_start_no", :unique => true
 
 end
