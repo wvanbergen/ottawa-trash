@@ -49,12 +49,23 @@ namespace(:trash_schedule) do
     
     puts "Done importing schedules!"
   end
+  
+  desc "Downloads the iCal files describing the trash schedule"
+  task(:download_ical_files => :environment) do
+    # Make sure the target directory exists
+    FileUtils.mkdir_p(TrashSchedule::ICALENDAR_DIR)
+    TrashSchedule.icalendar_source_urls.each do |url|
+      filename = TrashSchedule::ICALENDAR_DIR.join(url.split('/').last)
+      File.open(filename, 'w') do |file|
+        file << Net::HTTP.get(URI.parse(url))
+      end
+    end
+  end
 end
 
 task(:bootstrap => ['db:migrate', 
-                    'openstreetmap:download', 
-                    'openstreetmap:import_streets', 
-                    'trash:import']) do
+                    'trash_schedule:scrape',
+                    'trash_schedule:download_ical_files']) do
                       
   puts "All required data imported correctly!"
 end
