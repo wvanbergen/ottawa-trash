@@ -1,0 +1,20 @@
+<h1> Schedule </h1>
+<p> <%= display_address(@trash_schedule) %> </p>
+
+<p> Schedule <strong><%= @trash_schedule.calendar %></strong> on
+     <strong><%= TrashSchedule::DAYS.invert[@trash_schedule.day].pluralize %></strong> </p>
+
+<hr />
+
+<h2> Events for next month </h2>
+<ul>
+<% @trash_schedule.icalendar.first.events.each do |event| %>
+  <% event.occurrences(:overlapping => [Date.today, 1.month.from_now]).each do |o| %>
+    <li> <%= o.dtstart %> <%= o.summary %> </l>
+  <% end %>
+<% end %>
+</ul>
+
+<hr />
+
+<p> <%= link_to('iCal', icalendar_path(@trash_schedule)) %> </p>

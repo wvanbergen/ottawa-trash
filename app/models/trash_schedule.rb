@@ -24,4 +24,42 @@ class TrashSchedule < ActiveRecord::Base
     end
   end
 
+  def self.search(q)
+    if q =~ /(?:(\d+)\s+)?(.+)/
+      number, street = $1, $2
+      trash_schedules = TrashSchedule.with_street(street)
+      trash_schedules = @trash_schedules.with_number(number) if number
+      return trash_schedules
+    else
+      self
+    end
+  end
+
+  def self.with_street(street)
+    where("street LIKE ?", "#{street.strip.upcase}")
+  end
+
+  def self.with_number(number)
+    where("(start_no IS NULL AND end_no IS NULL) OR (start_no <= ? AND end_no >= ?)", number.to_i, number.to_i)
+  end
+
+  def self.in_number_range(lower_bound, upper_bound)
+    where("(start_no IS NULL AND end_no IS NULL) OR (start_no <= ? AND end_no >= ?)", upper_bound.to_i, lower_bound.to_i)    
+  end
+
+  def icalendar_file
+    self.class.icalendar_file(calendar, DAYS.invert[day])
+  end
+  
+  def icalendar_path
+    "/schedules/%s_%s.ics" % [calendar.downcase, DAYS.invert[day].downcase]
+  end
+  
+  def icalendar
+    RiCal.parse_string(File.read(icalendar_file))
+  end
+
+  def self.icalendar_file(schedule, day)
+    ICALENDAR_DIR.join('%s_%s.ics' % [schedule.downcase, day.downcase])
+  end
 end

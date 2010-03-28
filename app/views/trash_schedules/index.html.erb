@@ -1,0 +1,16 @@
+<h1> Lookup </h1>
+
+<%= form_tag root_path, :method => :get do %>
+  Address: <%= text_field_tag :q, params[:q] %>
+  <%= submit_tag 'Lookup', :name => nil %>
+<% end %>
+
+<% if @trash_schedules %>
+  
+  <ul>
+  <% @trash_schedules.each do |ts| %>
+    <li><%= link_to(display_address(ts), ts) %></li>
+  <% end %>
+  </ul>
+  
+<% end %>
