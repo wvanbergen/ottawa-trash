@@ -1,8 +1,11 @@
-<h1> Lookup </h1>
+<h1>Ottawa Garbage Schedules</h1>
 
 <%= form_tag root_path, :method => :get do %>
-  Address: <%= text_field_tag :q, params[:q] %>
-  <%= submit_tag 'Lookup', :name => nil %>
+  <%= label_tag :q, "Please enter your street address:" %>
+  <%= text_field_tag :q, params[:q], :placeholder => "111 Hawthorne" %>
+  <%= submit_tag 'Lookup', :name => nil %><br />
+  <br />
+  <small>Example: <em>111 Hawthorne</em></small>
 <% end %>
 
 <% if @trash_schedules %>
