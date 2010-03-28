@@ -15,12 +15,14 @@
     var address = jQuery.trim($("#q").val());
 
     if (geocoder && address.length > 0) {
-      address = address + ' Ottawa, Ontario, Canada';
+      address = address + ', Ottawa, Ontario, Canada';
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           // TODO use multiple results and result[0].partial_match to offer a "did you mean?"
           var result = results[0];
           console.debug("Received " + results.length + " results");
+
+          console.debug("Found: " + result.formatted_address + " which is a " + result.types[0]);
 
           // Gotta get a formatted_address
           if(results.length == 1 && result.formatted_address && result.types[0] == "street_address") {
@@ -30,6 +32,9 @@
             console.debug("Successful geocode");
             successfulGeocode = true;
             $('#lookup').submit();
+          } else {
+            console.debug("Couldn't find that address.");
+            $('#could-not-find-address').show();
           }
         }
       });
@@ -62,6 +67,10 @@
   <%= submit_tag 'Lookup', :name => nil %><br />
   <br />
   <small>Example: <em>111 Hawthorne</em></small>
+<% end %>
+
+  <p id="could-not-find-address" style="display: none;">We couldnt find that
+    address. Are sure it&rsquo;s spelled right?</p>
 
 
 <% if @trash_schedules %>

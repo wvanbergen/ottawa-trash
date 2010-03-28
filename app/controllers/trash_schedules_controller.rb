@@ -6,7 +6,7 @@ class TrashSchedulesController < ApplicationController
 
   def index
     if !params[:q].blank?
-       @trash_schedules = TrashSchedule.search(params[:q])
+      @trash_schedules = TrashSchedule.search(params[:q])
       if @trash_schedules.size == 1
         redirect_to(trash_schedule_path(@trash_schedules.first))
       else
