@@ -1,3 +1,59 @@
+<% content_for :head do %>
+
+<script type="text/javascript"><![CDATA[
+
+  var geocoder;
+  var successfulGeocode = false;
+
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+  }
+
+  function geocodeAddress() {
+    console.debug("geocoding...")
+
+    var address = jQuery.trim($("#q").val());
+
+    if (geocoder && address.length > 0) {
+      address = address + ' Ottawa, Ontario, Canada';
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          // TODO use multiple results and result[0].partial_match to offer a "did you mean?"
+          var result = results[0];
+          console.debug("Received " + results.length + " results");
+
+          // Gotta get a formatted_address
+          if(results.length == 1 && result.formatted_address && result.types[0] == "street_address") {
+            // $('q').val(result.formatted_address);
+            $("#q").val(result.address_components[0].long_name + ' ' + result.address_components[1].long_name);
+
+            console.debug("Successful geocode");
+            successfulGeocode = true;
+            $('#lookup').submit();
+          }
+        }
+      });
+    }
+    return false;
+  }
+
+  $(document).ready(function() {
+    initialize();
+
+    $("#lookup").submit(function() {
+      if(!successfulGeocode) {
+        geocodeAddress();
+        return false;
+      } else {
+        return true;
+      }
+    });
+  });
+
+]]></script>
+
+<% end %>
+
 <h1>Ottawa Garbage Schedules</h1>
 
 <%= form_tag root_path, :method => :get do %>
@@ -6,7 +62,6 @@
   <%= submit_tag 'Lookup', :name => nil %><br />
   <br />
   <small>Example: <em>111 Hawthorne</em></small>
-<% end %>
 
 
 <% if @trash_schedules %>
