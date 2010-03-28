@@ -28,7 +28,7 @@ class TrashSchedule < ActiveRecord::Base
     if q =~ /(?:(\d+)\s+)?(.+)/
       number, street = $1, $2
       trash_schedules = TrashSchedule.with_street(street)
-      trash_schedules = @trash_schedules.with_number(number) if number
+      trash_schedules = trash_schedules.with_number(number) if number
       return trash_schedules
     else
       self
