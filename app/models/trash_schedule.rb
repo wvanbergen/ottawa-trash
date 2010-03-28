@@ -5,12 +5,12 @@ class TrashSchedule < ActiveRecord::Base
                 'Thursday' => 4, 'Friday' => 5 }
 
   ICALENDAR_DIR = Rails.root.join('public', 'schedules')
-  ICALENDAR_SOURCE_URL_TEMPLATE = 'http://www.shawnhooper.ca/projects/ottawa-garbage-ical/gcc_%s_%s.ics'
 
-  LOOKUP_URL_TEMPLATE = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
-  PDF_SCHEDULE_URL_TEMPLATE = 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/calendar_%s/%s_calendar_2010_2011.pdf'
+  ICALENDAR_SOURCE_URL_TEMPLATE = 'http://www.shawnhooper.ca/projects/ottawa-garbage-ical/gcc_%s_%s.ics'
+  LOOKUP_URL_TEMPLATE           = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
+  PDF_SCHEDULE_URL_TEMPLATE     = 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/calendar_%s/%s_calendar_2010_2011.pdf'
   
-  STREET_SUFFIXES = ['St', 'Street', 'Drive', 'Dr', 'Ave', 'Avenue', 'Lane', 
+  STREET_SUFFIXES = ['St', 'Street', 'Drive', 'Dr', 'Ave', 'Avenue', 'Lane',
       'Parkway', 'Pkwy', 'Square', 'Sq', 'Driveway', 'Drwy', 'Bridge', 'Br',
       'Place', 'Boulevard', 'Blvd', 'Way']
   
@@ -30,7 +30,10 @@ class TrashSchedule < ActiveRecord::Base
   end
 
   def self.suffix_regexp
-    Regexp.new('\s+' + Regexp.union(STREET_SUFFIXES).to_s + '$', 'i')
+    @suffix_regexp ||= begin
+      suffixes = STREET_SUFFIXES.map { |s| Regexp.quote(s) }.join('|')
+      Regexp.new("\s+(?:#{suffixes})$", 'i')
+    end
   end
 
   def self.search(q)
@@ -46,7 +49,8 @@ class TrashSchedule < ActiveRecord::Base
   end
 
   def self.with_street(street)
-    where("street LIKE ?", street.strip.sub(suffix_regexp, '').upcase)
+    street_name = street.strip.sub(suffix_regexp, '').upcase
+    where("street LIKE ?", "#{street_name}%")
   end
 
   def self.with_number(number)

@@ -11,7 +11,7 @@ module TrashSchedulesHelper
   end
   
   def display_street(ts)
-    "#{ts.street.capitalize} #{ts.street_type.capitalize}"
+    "#{ts.street.titleize} #{ts.street_type.capitalize}"
   end
   
   def icalendar_path(ts)
