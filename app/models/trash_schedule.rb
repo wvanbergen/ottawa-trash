@@ -10,6 +10,10 @@ class TrashSchedule < ActiveRecord::Base
   LOOKUP_URL_TEMPLATE = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
   PDF_SCHEDULE_URL_TEMPLATE = 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/calendar_%s/%s_calendar_2010_2011.pdf'
   
+  STREET_SUFFIXES = ['St', 'Street', 'Drive', 'Dr', 'Ave', 'Avenue', 'Lane', 
+      'Parkway', 'Pkwy', 'Square', 'Sq', 'Driveway', 'Drwy', 'Bridge', 'Br',
+      'Place', 'Boulevard', 'Blvd', 'Way']
+  
   def self.each_icalendar_source_url(&block)
     if block_given?
       SCHEDULES.each do |schedule|
@@ -25,9 +29,14 @@ class TrashSchedule < ActiveRecord::Base
     end
   end
 
+  def self.suffix_regexp
+    Regexp.new('\s+' + Regexp.union(STREET_SUFFIXES).to_s + '$', 'i')
+  end
+
   def self.search(q)
     if q =~ /(?:(\d+)\s+)?(.+)/
       number, street = $1, $2
+      
       trash_schedules = TrashSchedule.with_street(street)
       trash_schedules = trash_schedules.with_number(number) if number
       return trash_schedules
@@ -37,7 +46,7 @@ class TrashSchedule < ActiveRecord::Base
   end
 
   def self.with_street(street)
-    where("street LIKE ?", "#{street.strip.upcase}")
+    where("street LIKE ?", street.strip.sub(suffix_regexp, '').upcase)
   end
 
   def self.with_number(number)
