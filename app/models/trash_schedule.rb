@@ -8,7 +8,8 @@ class TrashSchedule < ActiveRecord::Base
   ICALENDAR_SOURCE_URL_TEMPLATE = 'http://www.shawnhooper.ca/projects/ottawa-garbage-ical/gcc_%s_%s.ics'
 
   LOOKUP_URL_TEMPLATE = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
-
+  PDF_SCHEDULE_URL_TEMPLATE = 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/calendar_%s/%s_calendar_2010_2011.pdf'
+  
   def self.each_icalendar_source_url(&block)
     if block_given?
       SCHEDULES.each do |schedule|
@@ -67,6 +68,14 @@ class TrashSchedule < ActiveRecord::Base
 
   def self.icalendar_file(schedule, day)
     ICALENDAR_DIR.join('%s_%s.ics' % [schedule.downcase, day.downcase])
+  end
+  
+  def self.pdf_schedule_url(schedule)
+    PDF_SCHEDULE_URL_TEMPLATE % [schedule.downcase, schedule.downcase]
+  end
+  
+  def pdf_schedule_url
+    self.class.pdf_schedule_url(calendar)
   end
   
   def next_event_with_summary(summary, after = Date.today, max_search = 2.months)

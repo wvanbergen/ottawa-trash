@@ -1,8 +1,11 @@
 <h1> Trash pickup schedule </h1>
 <p> <%= display_address(@trash_schedule) %> </p>
 
-<p> Schedule <strong id="schedule"><%= @trash_schedule.calendar %></strong> on
-     <strong id="schedule-variant"><%= TrashSchedule::DAYS.invert[@trash_schedule.day].pluralize %></strong> </p>
+<p> 
+  <a id="schedule" href="<%=@trash_schedule.pdf_schedule_url%>">Schedule <%= @trash_schedule.calendar %></a> on
+    <strong id="schedule-variant"><%= TrashSchedule::DAYS.invert[@trash_schedule.day].pluralize %></strong>
+     (<%= link_to('iCal', icalendar_path(@trash_schedule)) %>)
+</p>
 
 <hr />
 
@@ -34,7 +37,3 @@
   <% end %>
 <% end %>
 </ul>
-
-<hr />
-
-<p> <%= link_to('iCal', icalendar_path(@trash_schedule)) %> </p>
