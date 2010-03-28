@@ -1,16 +1,36 @@
-<h1> Schedule </h1>
+<h1> Trash pickup schedule </h1>
 <p> <%= display_address(@trash_schedule) %> </p>
 
-<p> Schedule <strong><%= @trash_schedule.calendar %></strong> on
-     <strong><%= TrashSchedule::DAYS.invert[@trash_schedule.day].pluralize %></strong> </p>
+<p> Schedule <strong id="schedule"><%= @trash_schedule.calendar %></strong> on
+     <strong id="schedule-variant"><%= TrashSchedule::DAYS.invert[@trash_schedule.day].pluralize %></strong> </p>
 
 <hr />
 
-<h2> Events for next month </h2>
+<table id="next-dates">
+  <tr id="blue-box">
+    <td class="trash-kind"> Blue box: </td>
+    <td class="pickup-distance"> <%= date_distance(@trash_schedule.next_blue_box) %> </td>
+    <td class="pickup-date"> on <%= @trash_schedule.next_blue_box.strftime('%x') %> </td>
+  </tr>
+  <tr id="black-box">
+    <td class="trash-kind"> Black box: </td>
+    <td class="pickup-distance"> <%= date_distance(@trash_schedule.next_black_box) %> </td>
+    <td class="pickup-date"> on <%= @trash_schedule.next_black_box.strftime('%x') %> </td>
+  </tr>
+  <tr id="green-bin">
+    <td class="trash-kind"> Green bin: </td>
+    <td class="pickup-distance"> <%= date_distance(@trash_schedule.next_green_bin) %> </td>
+    <td class="pickup-date"> on <%= @trash_schedule.next_green_bin.strftime('%x') %> </td>
+  </tr>
+</table>
+
+<hr />
+
+<h2> Schedule for next month </h2>
 <ul>
-<% @trash_schedule.icalendar.first.events.each do |event| %>
+<% @trash_schedule.icalendar.events.each do |event| %>
   <% event.occurrences(:overlapping => [Date.today, 1.month.from_now]).each do |o| %>
-    <li> <%= o.dtstart %> <%= o.summary %> </l>
+    <li> <%= o.dtstart.strftime('%x') %>: <%= o.summary %> </l>
   <% end %>
 <% end %>
 </ul>

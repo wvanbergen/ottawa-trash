@@ -17,4 +17,12 @@ module TrashSchedulesHelper
   def icalendar_path(ts)
     ts.icalendar_path
   end
+  
+  def date_distance(date)
+    case date
+      when Date.today then content_tag(:strong, 'today')
+      when Date.today + 1 then content_tag(:strong, 'tomorrow')
+      else "in <strong>#{date - Date.today}</strong> days".html_safe
+    end
+  end
 end

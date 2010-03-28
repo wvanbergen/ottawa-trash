@@ -1,7 +1,32 @@
 html body {
   font-family: Helvetica, Arial, sans-serif;
 }
+
 #content {
   width: 800px;
   margin: 0px auto;
+}
+
+#next-dates {
+  border-collapse: collapse;
+  font-size: 150%;
+}
+#next-dates td {
+  padding: 5px;
+}
+
+#next-dates td.trash-kind {
+  font-weight: bold;
+}
+#next-dates td.pickup-date {
+  color: #bbbbbb;
+}
+#next-dates tr#blue-box td.trash-kind {
+  color: #0000aa;
+}
+#next-dates tr#black-box td.trash-kind {
+  color: black;
+}
+#next-dates tr#green-bin td.trash-kind {
+  color: #00aa00;
 }

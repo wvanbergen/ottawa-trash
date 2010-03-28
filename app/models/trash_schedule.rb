@@ -55,11 +55,40 @@ class TrashSchedule < ActiveRecord::Base
     "/schedules/%s_%s.ics" % [calendar.downcase, DAYS.invert[day].downcase]
   end
   
+  
+  def self.icalendar(file)
+    @icalendar_cache ||= {}
+    @icalendar_cache[file] ||= RiCal.parse_string(File.read(file)).first
+  end
+  
   def icalendar
-    RiCal.parse_string(File.read(icalendar_file))
+    @icalender ||= self.class.icalendar(icalendar_file)
   end
 
   def self.icalendar_file(schedule, day)
     ICALENDAR_DIR.join('%s_%s.ics' % [schedule.downcase, day.downcase])
+  end
+  
+  def next_event_with_summary(summary, after = Date.today, max_search = 2.months)
+    icalendar.events.each do |event|
+      if summary === event.summary
+        event.occurrences(:overlapping => [after, after + max_search]).each do |occurrence|
+          return occurrence.dtstart
+        end
+      end
+    end
+    return nil
+  end
+  
+  def next_blue_box
+    next_event_with_summary(/^Blue box/i)
+  end
+  
+  def next_green_bin
+    next_event_with_summary(/^Green bin/i)
+  end
+  
+  def next_black_box
+    next_event_with_summary(/^Black box/i)
   end
 end
