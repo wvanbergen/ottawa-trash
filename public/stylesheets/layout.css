@@ -7,6 +7,16 @@ html body {
   margin: 0px auto;
 }
 
+#content h1 {
+  font-size: 22px;
+}
+
+#content p.error {
+  color: #aa0000;
+  font-weight: bold;
+}
+
+
 #next-dates {
   border-collapse: collapse;
   font-size: 150%;
@@ -21,6 +31,10 @@ html body {
 #next-dates td.pickup-date {
   color: #bbbbbb;
 }
+
+#next-dates tr#regular td.trash-kind {
+  color: #aaaaaa;
+}
 #next-dates tr#blue-box td.trash-kind {
   color: #0000aa;
 }
@@ -31,6 +45,8 @@ html body {
   color: #00aa00;
 }
 
+/* iPhone stuff */
+
 @media screen and (max-device-width: 480px) {
   
   #content {
@@ -40,7 +56,7 @@ html body {
     font-size: 16px;
   }  
   
-  #content h1 {  
+  #content h1 {
     font-size: 22px;
   }
   

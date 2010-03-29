@@ -8,12 +8,15 @@
   <small>Example: <em>111 Hawthorne</em></small>
 <% end %>
 
+
 <% if @trash_schedules %>
-  
-  <ul>
-  <% @trash_schedules.each do |ts| %>
-    <li><%= link_to(display_address(ts), ts) %></li>
+  <% if @trash_schedules.any? %>
+    <ul>
+    <% @trash_schedules.each do |ts| %>
+      <li><%= link_to(display_address(ts), ts) %></li>
+    <% end %>
+    </ul>
+  <% else %>
+    <p class="error">Didn't find any matching addresses, please try again. </p>
   <% end %>
-  </ul>
-  
 <% end %>
