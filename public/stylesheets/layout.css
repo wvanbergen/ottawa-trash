@@ -45,6 +45,16 @@ html body {
   color: #00aa00;
 }
 
+p.metadata {
+  margin-top: 60px;
+  color: #cccccc;
+  font-size: 90%;
+}
+
+p.metadata a {
+  color: #aaaaff;
+}
+
 /* iPhone stuff */
 
 @media screen and (max-device-width: 480px) {
