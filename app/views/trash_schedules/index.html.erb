@@ -1,6 +1,6 @@
 <% content_for :head do %>
 
-<script type="text/javascript"><![CDATA[
+<script type="text/javascript">
 
   var geocoder;
   var successfulGeocode = false;
@@ -54,14 +54,13 @@
       }
     });
   });
-
-]]></script>
+</script>
 
 <% end %>
 
 <h1>Ottawa Garbage Schedules</h1>
 
-<%= form_tag root_path, :method => :get do %>
+<%= form_tag root_path, :method => :get, :id => 'lookup' do %>
   <%= label_tag :q, "Please enter your street address:" %>
   <%= text_field_tag :q, params[:q], :placeholder => "111 Hawthorne", :type => 'search' %>
   <%= submit_tag 'Lookup', :name => nil %><br />
@@ -69,9 +68,8 @@
   <small>Example: <em>111 Hawthorne</em></small>
 <% end %>
 
-  <p id="could-not-find-address" style="display: none;">We couldnt find that
-    address. Are sure it&rsquo;s spelled right?</p>
-
+  <p id="could-not-find-address" style="display: none;">We couldn&rsquo;t find
+    that address. Are sure it&rsquo;s spelled right?</p>
 
 <% if @trash_schedules %>
   <% if @trash_schedules.any? %>
