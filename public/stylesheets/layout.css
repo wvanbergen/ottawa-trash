@@ -3,7 +3,7 @@ html body {
 }
 
 #content {
-  width: 800px;
+  width: 640px;
   margin: 0px auto;
 }
 
@@ -29,4 +29,26 @@ html body {
 }
 #next-dates tr#green-bin td.trash-kind {
   color: #00aa00;
+}
+
+@media screen and (max-device-width: 480px) {
+  
+  #content {
+    -webkit-text-size-adjust:none;
+    width: 100%;
+    margin: 0;
+    font-size: 16px;
+  }  
+  
+  #content h1 {  
+    font-size: 22px;
+  }
+  
+  #next-dates {
+    font-size: 110%;
+  }
+  
+  #next-dates td.pickup-date {
+   font-size: 90%; 
+  }
 }

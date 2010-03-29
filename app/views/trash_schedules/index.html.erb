@@ -2,7 +2,7 @@
 
 <%= form_tag root_path, :method => :get do %>
   <%= label_tag :q, "Please enter your street address:" %>
-  <%= text_field_tag :q, params[:q], :placeholder => "111 Hawthorne" %>
+  <%= text_field_tag :q, params[:q], :placeholder => "111 Hawthorne", :type => 'search' %>
   <%= submit_tag 'Lookup', :name => nil %><br />
   <br />
   <small>Example: <em>111 Hawthorne</em></small>
