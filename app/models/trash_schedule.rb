@@ -102,6 +102,10 @@ class TrashSchedule < ActiveRecord::Base
     return nil
   end
   
+  def next_regular
+    next_event_with_summary(/^(?:Blue|Green|Black) /i)
+  end
+  
   def next_blue_box
     next_event_with_summary(/^Blue box/i)
   end
