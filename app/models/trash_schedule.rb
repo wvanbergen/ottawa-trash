@@ -117,4 +117,8 @@ class TrashSchedule < ActiveRecord::Base
   def next_black_box
     next_event_with_summary(/^Black box/i)
   end
+  
+  def build_subscription
+    Subscription.new(:calendar => calendar, :day => day)
+  end
 end

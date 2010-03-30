@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100326002545) do
+ActiveRecord::Schema.define(:version => 20100330011716) do
+
+  create_table "subscriptions", :force => true do |t|
+    t.string   "email"
+    t.string   "calendar"
+    t.integer  "day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscriptions", ["email", "calendar", "day"], :name => "index_subscriptions_on_email_and_calendar_and_day", :unique => true
 
   create_table "trash_schedules", :force => true do |t|
     t.integer  "start_no"

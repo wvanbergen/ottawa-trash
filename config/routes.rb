@@ -14,6 +14,7 @@ OttawaTrash::Application.routes.draw do |map|
   #   resources :products
 
   resources :trash_schedules, :as => :schedule
+  resources :subscriptions
 
   # Sample resource route with options:
   #   resources :products do

@@ -1,0 +1,12 @@
+<h2> E-mail Reminders </h2>
+
+<p> Enter your e-mail address to get e-mail reminders for this schedule. </p>
+
+<%= form_for(subscription) do |form| %>
+  <%= form.hidden_field :calendar %>
+  <%= form.hidden_field :day %>
+  
+  <p> E-mail: <%= form.text_field :email, :placeholder => 'me@example.com', :type => 'email' %> 
+    <%= submit_tag 'Subscribe' %>
+  </p>
+<% end %>
