@@ -1,6 +1,66 @@
+<% content_for :head do %>
+
+<script type="text/javascript">
+
+  var geocoder;
+  var successfulGeocode = false;
+
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+  }
+
+  function geocodeAddress() {
+    console.debug("geocoding...")
+
+    var address = jQuery.trim($("#q").val());
+
+    if (geocoder && address.length > 0) {
+      address = address + ', Ottawa, Ontario, Canada';
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          // TODO use multiple results and result[0].partial_match to offer a "did you mean?"
+          var result = results[0];
+          console.debug("Received " + results.length + " results");
+
+          console.debug("Found: " + result.formatted_address + " which is a " + result.types[0]);
+
+          // Gotta get a formatted_address
+          if(results.length == 1 && result.formatted_address && result.types[0] == "street_address") {
+            // $('q').val(result.formatted_address);
+            $("#q").val(result.address_components[0].long_name + ' ' + result.address_components[1].long_name);
+
+            console.debug("Successful geocode");
+            successfulGeocode = true;
+            $('#lookup').submit();
+          } else {
+            console.debug("Couldn't find that address.");
+            $('#could-not-find-address').show();
+          }
+        }
+      });
+    }
+    return false;
+  }
+
+  $(document).ready(function() {
+    initialize();
+
+    $("#lookup").submit(function() {
+      if(!successfulGeocode) {
+        geocodeAddress();
+        return false;
+      } else {
+        return true;
+      }
+    });
+  });
+</script>
+
+<% end %>
+
 <h1>Ottawa Garbage Schedules</h1>
 
-<%= form_tag root_path, :method => :get do %>
+<%= form_tag root_path, :method => :get, :id => 'lookup' do %>
   <%= label_tag :q, "Please enter your street address:" %>
   <%= text_field_tag :q, params[:q], :placeholder => "24 Sussex", :type => 'search' %>
   <%= submit_tag 'Lookup', :name => nil %><br />
@@ -8,6 +68,8 @@
   <small>Example: <em>24 Sussex</em></small>
 <% end %>
 
+  <p id="could-not-find-address" style="display: none;">We couldn&rsquo;t find
+    that address. Are sure it&rsquo;s spelled right?</p>
 
 <% if @trash_schedules %>
   <% if @trash_schedules.any? %>
