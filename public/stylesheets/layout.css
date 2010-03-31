@@ -3,9 +3,19 @@ html body {
 }
 
 #content {
-  width: 800px;
+  width: 640px;
   margin: 0px auto;
 }
+
+#content h1 {
+  font-size: 22px;
+}
+
+#content p.error {
+  color: #aa0000;
+  font-weight: bold;
+}
+
 
 #next-dates {
   border-collapse: collapse;
@@ -21,6 +31,10 @@ html body {
 #next-dates td.pickup-date {
   color: #bbbbbb;
 }
+
+#next-dates tr#regular td.trash-kind {
+  color: #aaaaaa;
+}
 #next-dates tr#blue-box td.trash-kind {
   color: #0000aa;
 }
@@ -29,4 +43,38 @@ html body {
 }
 #next-dates tr#green-bin td.trash-kind {
   color: #00aa00;
+}
+
+p.metadata {
+  margin-top: 60px;
+  color: #cccccc;
+  font-size: 90%;
+}
+
+p.metadata a {
+  color: #aaaaff;
+}
+
+/* iPhone stuff */
+
+@media screen and (max-device-width: 480px) {
+  
+  #content {
+    -webkit-text-size-adjust:none;
+    width: 100%;
+    margin: 0;
+    font-size: 16px;
+  }  
+  
+  #content h1 {
+    font-size: 22px;
+  }
+  
+  #next-dates {
+    font-size: 110%;
+  }
+  
+  #next-dates td.pickup-date {
+   font-size: 90%; 
+  }
 }

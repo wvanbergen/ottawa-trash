@@ -10,6 +10,11 @@
 <hr />
 
 <table id="next-dates">
+  <tr id="regular">
+    <td class="trash-kind"> Regular: </td>
+    <td class="pickup-distance"> <%= date_distance(@trash_schedule.next_regular) %> </td>
+    <td class="pickup-date"> on <%= @trash_schedule.next_regular.strftime('%x') %> </td>
+  </tr>
   <tr id="blue-box">
     <td class="trash-kind"> Blue box: </td>
     <td class="pickup-distance"> <%= date_distance(@trash_schedule.next_blue_box) %> </td>
@@ -33,7 +38,9 @@
 <ul>
 <% @trash_schedule.icalendar.events.each do |event| %>
   <% event.occurrences(:overlapping => [Date.today, 1.month.from_now]).each do |o| %>
-    <li> <%= o.dtstart.strftime('%x') %>: <%= o.summary %> </l>
+    <li> <%= o.dtstart.strftime('%x') %>: <%= o.summary %> </li>
   <% end %>
 <% end %>
 </ul>
+
+<%= render :partial => 'layouts/metadata' %>
