@@ -3,7 +3,7 @@
 This application lets you type in an Ottawa address to find out when your
 trash/recycling/compost needs to go out to the curb.
 
-Check it out at http://ogc.heroku.com
+Check it out at http://www.ottawatrash.ca
 
 == Dedication
 
