@@ -12,7 +12,7 @@ class TrashSchedule < ActiveRecord::Base
   
   STREET_SUFFIXES = ['St', 'Street', 'Drive', 'Dr', 'Ave', 'Avenue', 'Lane',
       'Parkway', 'Pkwy', 'Square', 'Sq', 'Driveway', 'Drwy', 'Bridge', 'Br',
-      'Place', 'Boulevard', 'Blvd', 'Way']
+      'Place', 'Boulevard', 'Blvd', 'Way', 'Cres', 'Crescent']
   
   def self.each_icalendar_source_url(&block)
     if block_given?
