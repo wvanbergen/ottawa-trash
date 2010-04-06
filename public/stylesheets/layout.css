@@ -25,6 +25,11 @@ html body {
   font-weight: bold;
 }
 
+#content blockquote {
+  font-size: 0.95em;
+  line-height: 150%;
+  font-style: oblique;
+}
 
 #next-dates {
   border-collapse: collapse;
