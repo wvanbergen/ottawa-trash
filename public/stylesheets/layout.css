@@ -8,7 +8,16 @@ html body {
 }
 
 #content h1 {
+  font-size: 26px;
+}
+
+#content h2 {
   font-size: 22px;
+}
+
+#content p, #content li {
+  font-size: 0.95em;
+  line-height: 150%;
 }
 
 #content p.error {
@@ -69,6 +78,10 @@ p.metadata a {
   #content h1 {
     font-size: 22px;
   }
+  
+  #content h2 {
+    font-size: 18px;
+  }  
   
   #next-dates {
     font-size: 110%;

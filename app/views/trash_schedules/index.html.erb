@@ -1,15 +1,16 @@
 <h1>Ottawa Garbage Schedules</h1>
 
 <%= form_tag root_path, :method => :get do %>
-  <%= label_tag :q, "Please enter your street address:" %>
-  <%= text_field_tag :q, params[:q], :placeholder => "24 Sussex", :type => 'search' %>
-  <%= submit_tag 'Lookup', :name => nil %><br />
-  <br />
-  <small>Example: <em>24 Sussex</em></small>
+  <p>
+    <%= label_tag :q, "Please enter your street address:" %>
+    <%= text_field_tag :q, params[:q], :placeholder => "24 Sussex", :type => 'search' %>
+    <%= submit_tag 'Lookup', :name => nil %>
+  </p>
+
 <% end %>
 
-
 <% if @trash_schedules %>
+  <p> Found multiple matches for <em><%=params[:q]%></em>:</p>
   <% if @trash_schedules.any? %>
     <ul>
     <% @trash_schedules.each do |ts| %>
@@ -17,6 +18,8 @@
     <% end %>
     </ul>
   <% else %>
-    <p class="error">Didn't find any matching addresses, please try again. </p>
+    <p class="error">Didn't find any matching addresses for <em><%=params[:q]%></em>, please try again. </p>
   <% end %>
+<% else%>
+  <p><small>Example: <em>24 Sussex</em></small></p>
 <% end %>

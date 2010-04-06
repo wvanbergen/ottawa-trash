@@ -1,6 +1,9 @@
 <p class="metadata">
+  <% if params[:action] != 'index' %> 
+    <%= link_to '&laquo; Back'.html_safe, root_path %> ::
+  <% end %>
   <%= link_to 'City info', 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/index_en.html' %> ::
   <%= link_to 'Source code', 'http://github.com/wvanbergen/ogc' %> ::
   <%= mail_to 'ottawa.garbage.day@gmail.com', 'Contact us' %> ::
-  <%= link_to 'About', :action => 'about' %>
+  <%= link_to 'About', about_path %>
 </p>
