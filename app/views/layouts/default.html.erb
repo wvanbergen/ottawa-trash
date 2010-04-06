@@ -12,6 +12,8 @@
   <body>
     <div id="content">
       <%= yield %>
+      
+      <%= render :partial => 'layouts/metadata' %>
     </div>
     <%= render :partial => 'layouts/analytics' %>
   </body>
