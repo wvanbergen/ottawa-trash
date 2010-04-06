@@ -8,3 +8,7 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 Rails::Application.load_tasks
+
+task(:cron => ['reminders:tomorrow']) do
+  puts "Cron jobs for today finished!"
+end
