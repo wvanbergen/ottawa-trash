@@ -14,7 +14,7 @@ OttawaTrash::Application.routes.draw do |map|
   #   resources :products
 
   resources :trash_schedules, :as => :schedule
-  match 'about' => 'trash_schedules#about'
+  match 'about' => 'trash_schedules#about', :as => :about
 
   # Sample resource route with options:
   #   resources :products do
