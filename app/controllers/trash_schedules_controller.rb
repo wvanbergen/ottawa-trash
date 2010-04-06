@@ -4,6 +4,9 @@ class TrashSchedulesController < ApplicationController
 
   before_filter :load_trash_schedule, :only => :show
 
+  caches_page :about
+  caches_action :index, :if => lambda { |c| c.params[:q].blank? }
+
   def index
     if !params[:q].blank?
        @trash_schedules = TrashSchedule.search(params[:q])
@@ -17,6 +20,10 @@ class TrashSchedulesController < ApplicationController
 
   def show
     respond_with(@trash_schedule)
+  end
+  
+  def about
+    # noop
   end
 
   protected
