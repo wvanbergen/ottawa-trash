@@ -13,7 +13,7 @@ OttawaTrash::Application.routes.draw do |map|
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :trash_schedules, :as => :schedule
+  resources :trash_schedules
   match 'about' => 'trash_schedules#about', :as => :about
 
   # Sample resource route with options:
