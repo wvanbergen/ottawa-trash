@@ -22,7 +22,7 @@ module TrashSchedulesHelper
     case date
       when Date.today then content_tag(:strong, 'today')
       when Date.today + 1 then content_tag(:strong, 'tomorrow')
-      else "in <strong>#{date - Date.today}</strong> days".html_safe
+      else ("in <strong>%d</strong> days" % [date - Date.today]).html_safe
     end
   end
 end
