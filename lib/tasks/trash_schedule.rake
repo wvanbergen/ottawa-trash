@@ -70,7 +70,7 @@ namespace(:trash_schedule) do
 end
 
 desc "Bootstrap Ottawa Garbage Collection [all setup tasks in one command]"
-task(:bootstrap => ['db:migrate', 
+task(:bootstrap => ['db:setup', 
                     'trash_schedule:scrape',
                     'trash_schedule:download_ical_files']) do
 

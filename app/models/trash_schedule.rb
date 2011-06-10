@@ -8,7 +8,7 @@ class TrashSchedule < ActiveRecord::Base
 
   ICALENDAR_SOURCE_URL_TEMPLATE = 'http://www.shawnhooper.ca/projects/ottawa-garbage-ical/gcc_%s_%s.ics'
   LOOKUP_URL_TEMPLATE           = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
-  PDF_SCHEDULE_URL_TEMPLATE     = 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/calendar_%s/%s_calendar_2010_2011.pdf'
+  PDF_SCHEDULE_URL_TEMPLATE     = 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/calendar_%s/%s_calendar_2011_2012.pdf'
   
   STREET_SUFFIXES = ['St', 'Street', 'Drive', 'Dr', 'Ave', 'Avenue', 'Lane',
       'Parkway', 'Pkwy', 'Square', 'Sq', 'Driveway', 'Drwy', 'Bridge', 'Br',
@@ -66,7 +66,7 @@ class TrashSchedule < ActiveRecord::Base
   end
   
   def icalendar_path
-    "/schedules/%s_%s.ics" % [calendar.downcase, DAYS.invert[day].downcase]
+    "/schedules/gcc_%s_%s.ics" % [calendar.downcase, DAYS.invert[day].downcase]
   end
   
   
@@ -80,7 +80,7 @@ class TrashSchedule < ActiveRecord::Base
   end
 
   def self.icalendar_file(schedule, day)
-    ICALENDAR_DIR.join('%s_%s.ics' % [schedule.downcase, day.downcase])
+    ICALENDAR_DIR.join('gcc_%s_%s.ics' % [schedule.downcase, day.downcase])
   end
   
   def self.pdf_schedule_url(schedule)
