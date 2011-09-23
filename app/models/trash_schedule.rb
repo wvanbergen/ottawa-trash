@@ -8,7 +8,7 @@ class TrashSchedule < ActiveRecord::Base
 
   ICALENDAR_SOURCE_URL_TEMPLATE = 'http://www.shawnhooper.ca/projects/ottawa-garbage-ical/gcc_%s_%s.ics'
   LOOKUP_URL_TEMPLATE           = 'http://ottawa.ca/cgi-bin/gc/gc.pl?sname=en&street=%s'
-  PDF_SCHEDULE_URL_TEMPLATE     = 'http://ottawa.ca/residents/recycling_garbage/collection_calendar/calendar_%s/%s_calendar_2011_2012.pdf'
+  PDF_SCHEDULE_URL_TEMPLATE     = 'http://ottawa.ca/garbage_recycle/garbage/collection_calendar/calendar_%s/%s_CC_2011_2012.pdf'
   
   STREET_SUFFIXES = ['St', 'Street', 'Drive', 'Dr', 'Ave', 'Avenue', 'Lane',
       'Parkway', 'Pkwy', 'Square', 'Sq', 'Driveway', 'Drwy', 'Bridge', 'Br',
