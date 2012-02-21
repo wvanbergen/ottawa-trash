@@ -1,7 +1,7 @@
 source :rubygems
 
 gem "rails", "3.2.1"
-gem 'jquery-ujs'
+gem 'jquery-rails'
 
 gem "nokogiri"
 gem "ri_cal"
