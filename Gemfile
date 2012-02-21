@@ -1,10 +1,7 @@
-# Edit this Gemfile to bundle your application's dependencies.
 source :rubygems
 
-gem "rails", "3.0.8"
-
-## Bundle edge rails:
-# gem "rails", :git => "git://github.com/rails/rails.git"
+gem "rails", "3.2.1"
+gem 'jquery-ujs'
 
 gem "nokogiri"
 gem "ri_cal"
