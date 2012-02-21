@@ -49,8 +49,8 @@ GEM
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
     multi_json (1.1.0)
-    mysql (2.8.1)
     nokogiri (1.4.3.1)
+    pg (0.13.1)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.1)
@@ -96,8 +96,8 @@ PLATFORMS
 DEPENDENCIES
   jquery-rails
   mongrel (~> 1.2.0.pre2)
-  mysql
   nokogiri
+  pg
   rails (= 3.2.1)
   ri_cal
   sqlite3

@@ -7,10 +7,13 @@ gem "nokogiri"
 gem "ri_cal"
 
 group :development do
-  gem "mysql"
   gem "mongrel", '~> 1.2.0.pre2'
 end
 
 group :test, :development do
   gem "sqlite3"
+end
+
+group :productionn do
+  gem "pg"
 end
