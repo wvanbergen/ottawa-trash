@@ -14,6 +14,6 @@ group :development do
   gem "mongrel", '~> 1.2.0.pre2'
 end
 
-group :test do
-  gem "mysql"
+group :test, :development do
+  gem "sqlite3"
 end
